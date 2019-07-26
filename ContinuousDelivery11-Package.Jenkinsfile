@@ -17,9 +17,9 @@ pipeline {
     AuthorizationToken = credentials('LifeTimeServiceAccountToken')
     // Environments Specification Variables
     DevelopmentEnvironment = 'Development'
-    RegressionEnvironment = 'Regression'
-    AcceptanceEnvironment = 'Acceptance'
-    PreProductionEnvironment = 'Pre-Production'
+    RegressionEnvironment = 'Quality'
+    //AcceptanceEnvironment = 'Acceptance'
+  // PreProductionEnvironment = 'Pre-Production'
     ProductionEnvironment = 'Production'
     // Regression URL Specification
     ProbeEnvironmentURL = 'https://csdevops11-reg.outsystems.net/'
@@ -86,55 +86,11 @@ pipeline {
         }
       }
     }
-    stage('Accept Changes') {
-      steps {
-        withPythonEnv('python') {
-          echo 'Deploying latest application tags to Acceptance...'
-          powershell "python -m outsystems.pipeline.deploy_latest_tags_to_target_env --artifacts \"${env.ArtifactsFolder}\" --lt_url ${env.LifeTimeEnvironmentURL} --lt_token ${env.AuthorizationToken} --lt_api_version ${env.LifeTimeAPIVersion} --source_env \"${env.RegressionEnvironment}\" --destination_env \"${env.AcceptanceEnvironment}\" --app_list \"${params.ApplicationScope}\""
-          // Wrap the confirm in a timeout to avoid hanging Jenkins forever
-          timeout(time:1, unit:'DAYS') {
-          input 'Accept changes and deploy to Production?'
-           }
-         }
-       }
-      post {
-        always {
-          dir ("${env.ArtifactsFolder}") {
-            archiveArtifacts artifacts: "*_data/*.cache", onlyIfSuccessful: true
-          }
-        }
-        failure {
-          dir ("${env.ArtifactsFolder}") {
-            archiveArtifacts artifacts: "DeploymentConflicts"
-           }
-         }
-       }
-     }
-    stage('Deploy Dry-Run') {
-      steps {
-        withPythonEnv('python') {
-          echo 'Deploying latest application tags to Pre-Production...'
-          powershell "python -m outsystems.pipeline.deploy_latest_tags_to_target_env --artifacts \"${env.ArtifactsFolder}\" --lt_url ${env.LifeTimeEnvironmentURL} --lt_token ${env.AuthorizationToken} --lt_api_version ${env.LifeTimeAPIVersion} --source_env \"${env.AcceptanceEnvironment}\" --destination_env \"${env.PreProductionEnvironment}\" --app_list \"${params.ApplicationScope}\""
-        }
-      }
-      post {
-        always {
-          dir ("${env.ArtifactsFolder}") {
-            archiveArtifacts artifacts: "*_data/*.cache", onlyIfSuccessful: true
-          }
-        }
-        failure {
-          dir ("${env.ArtifactsFolder}") {
-            archiveArtifacts artifacts: "DeploymentConflicts"
-          }
-        }
-      }
-    }
     stage('Deploy Production') {
       steps {
         withPythonEnv('python') {
           echo 'Deploying latest application tags to Production...'
-          powershell "python -m outsystems.pipeline.deploy_latest_tags_to_target_env --artifacts \"${env.ArtifactsFolder}\" --lt_url ${env.LifeTimeEnvironmentURL} --lt_token ${env.AuthorizationToken} --lt_api_version ${env.LifeTimeAPIVersion} --source_env \"${env.PreProductionEnvironment}\" --destination_env \"${env.ProductionEnvironment}\" --app_list \"${params.ApplicationScope}\""
+          powershell "python -m outsystems.pipeline.deploy_latest_tags_to_target_env --artifacts \"${env.ArtifactsFolder}\" --lt_url ${env.LifeTimeEnvironmentURL} --lt_token ${env.AuthorizationToken} --lt_api_version ${env.LifeTimeAPIVersion} --source_env \"${env.RegressionEnvironment}\" --destination_env \"${env.ProductionEnvironment}\" --app_list \"${params.ApplicationScope}\""
         }
       }
       post {
