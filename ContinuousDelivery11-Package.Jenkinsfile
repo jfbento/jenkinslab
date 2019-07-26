@@ -12,7 +12,7 @@ pipeline {
     ArtifactsFolder = "Artifacts"
     // LifeTime Specific Variables
     LifeTimeAPIVersion = 2
-    LifeTimeEnvironmentURL = 'csdevops11-lt.outsystems.net'
+    LifeTimeEnvironmentURL = 'cicd-life.outsystemsonazure.com'
     // Authentication Specific Variables
     AuthorizationToken = credentials('LifeTimeServiceAccountToken')
     // Environments Specification Variables
@@ -22,8 +22,8 @@ pipeline {
   // PreProductionEnvironment = 'Pre-Production'
     ProductionEnvironment = 'Production'
     // Regression URL Specification
-    ProbeEnvironmentURL = 'https://csdevops11-reg.outsystems.net/'
-    BddEnvironmentURL = 'https://csdevops11-reg.outsystems.net/'
+    ProbeEnvironmentURL = 'https://cicd-test.outsystemsonazure.com/'
+    BddEnvironmentURL = 'https://cicd-test.outsystemsonazure.com/'
   }
   stages {
     stage('Install Python Dependencies') {
