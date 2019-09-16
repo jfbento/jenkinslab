@@ -8,19 +8,24 @@ pipeline {
   }
   options { skipStagesAfterUnstable() }
   environment {
+    
     // Artifacts Folder
     ArtifactsFolder = "Artifacts"
+    
     // LifeTime Specific Variables
     LifeTimeAPIVersion = 2
     LifeTimeEnvironmentURL = 'cicd-life.outsystemsonazure.com'
+    
     // Authentication Specific Variables
     AuthorizationToken = credentials('LifeTimeServiceAccountToken')
+    
     // Environments Specification Variables
     DevelopmentEnvironment = 'Development'
     RegressionEnvironment = 'Quality'
-    //AcceptanceEnvironment = 'Acceptance'
-  // PreProductionEnvironment = 'Pre-Production'
     ProductionEnvironment = 'Production'
+     //AcceptanceEnvironment = 'Acceptance'
+     //PreProductionEnvironment = 'Pre-Production'
+  
     // Regression URL Specification
     ProbeEnvironmentURL = 'https://cicd-test.outsystemsonazure.com/'
     BddEnvironmentURL = 'https://cicd-test.outsystemsonazure.com/'
