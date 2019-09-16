@@ -8,7 +8,6 @@ pipeline {
   }
   options { skipStagesAfterUnstable() }
   environment {
-    
     // Artifacts Folder
     ArtifactsFolder = "Artifacts"
     
