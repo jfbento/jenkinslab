@@ -40,7 +40,7 @@ pipeline {
         }
       }
     }
-    stage('Get Latest Tags') {
+    stage('Deploy to Regression') {
       steps {
         withPythonEnv('python') {
           echo "Pipeline run triggered remotely by '${params.TriggeredBy}' for the following applications (including tests): '${params.ApplicationScopeWithTests}'"
@@ -63,7 +63,7 @@ pipeline {
         }
       }
     }
-    stage('Run Regression') {
+    stage('Run Regression tests') {
       steps {
         withPythonEnv('python') {
           echo 'Generating URLs for BDD testing...'
@@ -84,7 +84,7 @@ pipeline {
         }
       }
     }
-    stage('Accept Changes') {
+    stage('Accept Changes to Prodution') {
       steps {
         withPythonEnv('python') {
           echo 'Deploying latest application tags to Acceptance...'
@@ -108,7 +108,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy Dry-Run') {
+    stage('Deploy Dry-Run in Pre-Production') {
       steps {
         withPythonEnv('python') {
           echo 'Deploying latest application tags to Pre-Production...'
@@ -128,7 +128,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy Production') {
+    stage('Deploy to Production') {
       steps {
         withPythonEnv('python') {
           echo 'Deploying latest application tags to Production...'
