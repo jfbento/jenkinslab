@@ -11,7 +11,7 @@ pipeline {
     // Artifacts Folder
     ArtifactsFolder = "Artifacts"
     // LifeTime Specific Variables
-    LifeTimeHostname = 'BentoLT'
+    LifeTimeHostname = 'bentolt.westeurope.cloudapp.azure.com'
     LifeTimeAPIVersion = 2
     // Authentication Specific Variables
     AuthorizationToken = credentials('LifeTimeServiceAccountToken')
