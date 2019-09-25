@@ -36,7 +36,7 @@ pipeline {
         // Install the rest of the dependencies
         withPythonEnv('python') {
           echo "Install Python requirements"
-          powershell 'pip install -U outsystems-pipeline'
+          powershell 'pip install -U outsystems-pipeline==0.2.19'
         }
       }
     }
@@ -84,7 +84,7 @@ pipeline {
         }
       }
     }
-    stage('Accept Changes to Prodution') {
+    stage('Accept Changes to Production') {
       steps {
         withPythonEnv('python') {
           echo 'Deploying latest application tags to Acceptance...'
