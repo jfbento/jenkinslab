@@ -22,8 +22,8 @@ pipeline {
     PreProductionEnvironment = 'Pre-Production'
     ProductionEnvironment = 'Production'
     // Regression URL Specification
-    ProbeEnvironmentURL = 'http://bentoreg.westeurope.cloudapp.azure.com'
-    BddEnvironmentURL = 'http://bentoreg.westeurope.cloudapp.azure.com'
+    ProbeEnvironmentURL = 'https://bentoreg.westeurope.cloudapp.azure.com'
+    BddEnvironmentURL = 'https://bentoreg.westeurope.cloudapp.azure.com'
   }
   stages {
     stage('Install Python Dependencies') {
