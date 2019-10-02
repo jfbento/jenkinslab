@@ -36,7 +36,7 @@ pipeline {
         // Install the rest of the dependencies
         withPythonEnv('python') {
           echo "Install Python requirements"
-          powershell 'pip install -U outsystems-pipeline==0.2.19'
+          powershell 'pip install -U outsystems-pipeline'
         }
       }
     }
